@@ -80,3 +80,28 @@ elif ball.ycor() < -290:
 
 score_display.clear()
 score_display.write(f"Player 1: {'player1'} Player 2: {'player2'}", align="center", font=("Arial", 24, "normal"))
+
+def paddle1_up():
+    paddle1.dy = 10
+
+def paddle1_down():
+    paddle1.dy = -10
+
+def paddle2_up():
+    paddle2.dy = 10
+
+def paddle2_down():
+    paddle2.dy = -10
+
+turtle.listen()
+turtle.onkeypress(paddle1_up, "w")
+turtle.onkeypress(paddle1_down, "s")
+turtle.onkeypress(paddle2_up, "Up")
+turtle.onkeypress(paddle2_down, "Down")
+
+game_over_display = turtle.Turtle()
+game_over_display.color("white")
+game_over_display.penup()
+game_over_display.hideturtle()
+game_over_display.goto(0, 0)
+game_over_display.write(f"Game over! {'winner'} wins!", align="center", font=("Arial", 36, "normal"))
