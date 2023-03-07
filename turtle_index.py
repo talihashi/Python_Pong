@@ -41,69 +41,74 @@ game_rules = {
     "ball_speed": 3
 }
 
-#score
-score_display = turtle.Turtle()
-score_display.color("white")
-score_display.penup()
-score_display.hideturtle()
-score_display.goto(0, 260)
-score_display.write("Player 1: 0 Player 2: 0", align = "center", font = ("Arial", 24, "normal"))
+ball.dx = 0
+ball.dy = 0
 
-paddle1.sety(paddle1.ycor() + paddle1.dy)
-paddle2.sety(paddle2.ycor() + paddle2.dy)
-ball.setx(ball.xcor() + ball.dx)
-ball.sety(ball.ycor() + ball.dy)
+while True:
+    #score
+    score_display = turtle.Turtle()
+    score_display.color("white")
+    score_display.penup()
+    score_display.hideturtle()
+    score_display.goto(0, 260)
+    score_display.write("Player 1: 0 Player 2: 0", align = "center", font = ("Arial", 24, "normal"))
 
-#Game over
-if points["player1"] == game_rules["max_points"]:
-    game_over = True
-    winner = "player1"
-elif points["player2"] == game_rules["max_points"]:
-    game_over = True
-    winner = "player2"
+    paddle1.sety(paddle1.ycor() + paddle1.dy)
+    paddle2.sety(paddle2.ycor() + paddle2.dy)
 
-#paddle collision
-if(ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 50 and ball.ycor() > paddle2.ycor() - 50):
-    ball.setx(340)
-    ball.dx *= -1
-elif (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle1.ycor() + 50 and ball.ycor() > paddle1.ycor() - 50):
-    ball.setx(-340)
-    ball.dx *= -1
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
 
-#offscreen
-if ball.xcor() > 390:
-    ball.goto(0, 0)
-    ball.dx *= -1
-    points["player1"] += 1
-elif ball.xcor() < -390:
-    ball.goto(0, 0)
-    ball.dx *= -1
-    points["player2"] += 1
+    #Game over
+    if points["player1"] == game_rules["max_points"]:
+        game_over = True
+        winner = "player1"
+    elif points["player2"] == game_rules["max_points"]:
+        game_over = True
+        winner = "player2"
 
-#top or bottom collision
-if ball.ycor() > 290:
-    ball.sety(290)
-    ball.dy *= -1
-elif ball.ycor() < -290:
-    ball.sety(-290)
-    ball.dy *= -1
+    #paddle collision
+    if(ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle2.ycor() + 50 and ball.ycor() > paddle2.ycor() - 50):
+        ball.setx(340)
+        ball.dx *= -1
+    elif (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle1.ycor() + 50 and ball.ycor() > paddle1.ycor() - 50):
+        ball.setx(-340)
+        ball.dx *= -1
 
-#score update after conditions
-score_display.clear()
-score_display.write(f"Player 1: {'player1'} Player 2: {'player2'}", align="center", font=("Arial", 24, "normal"))
+    #offscreen
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        points["player1"] += 1
+    elif ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        points["player2"] += 1
 
-#paddle movement
-def paddle1_up():
-    paddle1.dy = 10
+    #top or bottom collision
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+    elif ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
 
-def paddle1_down():
-    paddle1.dy = -10
+    #score update after conditions
+    score_display.clear()
+    score_display.write(f"Player 1: {'player1'} Player 2: {'player2'}", align="center", font=("Arial", 24, "normal"))
 
-def paddle2_up():
-    paddle2.dy = 10
+    #paddle movement
+    def paddle1_up():
+        paddle1.dy = 10
 
-def paddle2_down():
-    paddle2.dy = -10
+    def paddle1_down():
+        paddle1.dy = -10
+
+    def paddle2_up():
+        paddle2.dy = 10
+
+    def paddle2_down():
+        paddle2.dy = -10
 
 #key bindings
 turtle.listen()
